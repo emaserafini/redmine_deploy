@@ -1,0 +1,39 @@
+<%
+  @settings = @settings.with_indifferent_access
+  groups = Group.all.reject { |g| g.admin || ['GroupAnonymous', 'GroupNonMember'].include?(g.type) }
+  @settings[:groups] ||= {}
+  groups.each { |g| @settings[:groups][g.id.to_s] ||= { name: g.lastname, email: '' } }
+%>
+
+<fieldset>
+  <legend>Group email</legend>
+  
+  <em class="info" style="padding-bottom: 1em;">
+    Se impostata, la mail verrà utilizzata per le notifiche di modifica issue assegnate al gruppo.
+    Altrimenti verranno notificati i membri del gruppo individualmente.
+  </em>
+
+  <table class="list">
+    <thead>
+
+      <tr>
+        <th>Group</th>
+        <th>Email</th>
+      </tr>
+
+    </thead>
+    <tbody>
+
+      <% @settings[:groups].each do |id, g| %>
+        <tr class="<%= cycle('odd', 'even') %>" align="center">
+          <td><%= g[:name] %></td>
+          <td>
+            <%= email_field_tag "settings[groups][#{id}][email]", g[:email], { style: 'min-width: 250px;' } %>
+            <%= hidden_field_tag "settings[groups][#{id}][name]", g[:name] %>
+          </td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</fieldset>

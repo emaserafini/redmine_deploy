@@ -1,0 +1,19 @@
+<% if issue.project.identifier.include? 'incident' %>
+  <% 
+    grouped_options = {
+      PSD2: ['PSD2 (Initial)', 'PSD2 (Intermediate)', 'PSD2 (Final)'],
+      # PCI: ['PCI Initial', 'PCI Intermediate', 'PCI Final'],
+      Other: ['GDPR', 'PCI CPP CPL', 'NIS', 'Intesa']
+    }
+  %>
+
+  <hr>
+  <%= form_tag incident_reports_path(issue), method: 'post', remote: true do |f| %>
+    <div class="contextual">
+      <%= select_tag 'report_type', grouped_options_for_select(grouped_options), prompt: 'Tipo di report' %>
+      <%#= text_field_tag 'report_filename', nil, placeholder: 'Nome file' %>
+      <%= submit_tag 'Genera' %>
+    </div>
+    <p><strong>Genera report</strong></p>
+  <% end %>
+<% end %>

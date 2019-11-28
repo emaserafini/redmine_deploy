@@ -1,0 +1,83 @@
+@import url(../../classic/stylesheets/application.css);
+
+/* Display all fields in one column */
+.splitcontentright,
+.splitcontentleft {
+  float: unset;
+}
+
+.regulations-table table {
+  background: white;
+  border: 1px solid #e4e4e4;
+  margin-left: 180px;
+}
+
+.regulations-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.regulations-table td {
+  text-align: center;
+}
+
+.regulations-table .key-col {
+  min-width: 200px;
+}
+
+.regulations-table .val-col {
+  min-width: 120px;
+}
+
+@media screen and (max-width: 899px) {
+  .regulations-table table {
+    margin-left: unset;
+  }
+}
+
+@import url(../../classic/stylesheets/application.css);
+
+/* Display all fields in one column */
+.splitcontentright,
+.splitcontentleft {
+  float: unset;
+}
+
+.regulations-table table {
+  background: white;
+  border: 1px solid #e4e4e4;
+  margin-left: 180px;
+}
+
+.regulations-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.regulations-table td {
+  text-align: center;
+}
+
+.regulations-table .key-col {
+  min-width: 200px;
+}
+
+.regulations-table .val-col {
+  min-width: 120px;
+}
+
+@media screen and (max-width: 899px) {
+  .regulations-table table {
+    margin-left: unset;
+  }
+}
+
+#projects-index {
+  column-count: unset;
+  column-width: unset;
+  column-gap: unset;
+  -webkit-column-count: unset;
+  -webkit-column-width: unset;
+  -webkit-column-gap: unset;
+  -moz-column-count: unset;
+  -moz-column-width: unset;
+  -moz-column-gap: unset;
+}

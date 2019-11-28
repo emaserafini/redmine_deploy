@@ -1,0 +1,41 @@
+<% 
+  psd2 = Psd2.new
+  data_type_field = IssueCustomField.find_by_name('tipo di dati impattati')
+  data_type_field_id = data_type_field ? data_type_field.id.to_json : nil
+  impacted_regulation_field = IssueCustomField.find_by_name('normativa impattata')
+  impacted_regulation_field_id = impacted_regulation_field ? impacted_regulation_field.id.to_json : nil
+%>
+
+<div
+  id="wrong_priority_warning"
+  class="flash warning"
+  style="
+    display: none;
+    width: 95%;
+    margin: 10px auto;
+  "
+>
+  <strong>Attenzione</strong>: il livello di priorità non è in linea con i parametri di impatto impostati.
+</div>
+
+<div
+  id="psd2_warning"
+  class="flash warning"
+  style="
+    display: none;
+    width: 95%;
+    margin: 10px auto;
+  "
+>
+  <strong>Major incident</strong>: rapporto PSD2 obbligatorio.
+</div>
+
+<%#= render 'regulations_table' %>
+
+<%= hidden_field_tag 'custom_field_ids', IssuesHelper.impact_fields_with_weights.to_json %>
+<%= hidden_field_tag 'data_type_field_id', data_type_field_id %>
+<%= hidden_field_tag 'impacted_regulation_field_id', impacted_regulation_field_id %>
+<%= hidden_field_tag 'psd2_info', psd2.info.to_json %>
+<%= hidden_field_tag 'psd2_major_incident_id', psd2.major_incident.to_json %>
+<%= hidden_field_tag 'regulations_list', IssuesHelper.regulations_list.to_json %>
+<%= javascript_include_tag "setPriorityAndFillTable.js", plugin: 'impacted_regulations' %>

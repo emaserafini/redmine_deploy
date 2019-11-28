@@ -1,0 +1,55 @@
+<%
+  options = Group.all.map { |g| [g.lastname, g.id] }
+  @settings = @settings.with_indifferent_access
+	@settings = { allow_only_group_selection: {} } unless @settings[:allow_only_group_selection]
+  projects_setting = @settings[:allow_only_group_selection][:projects]
+  issues_setting = @settings[:allow_only_group_selection][:issues]
+  issue_categories_setting = @settings[:allow_only_group_selection][:issue_categories]
+%>
+<fieldset>
+  <legend>Select options settings</legend>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Allow only group selection</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="<%= cycle("odd", "even") %>" align="center">
+        <td>Projects</td>
+        <td>
+          <%=
+            check_box_tag "settings[allow_only_group_selection][projects]",
+            projects_setting,
+            projects_setting == "on" ? true : false 
+          %>
+        </td>
+      </tr>
+
+      <tr class="<%= cycle("odd", "even") %>" align="center">
+        <td>Issues</td>
+        <td>
+          <%=
+            check_box_tag "settings[allow_only_group_selection][issues]",
+            issues_setting,
+            issues_setting == "on" ? true : false 
+          %>
+        </td>
+      </tr>
+
+      <tr class="<%= cycle("odd", "even") %>" align="center">
+        <td>Issue categories</td>
+        <td>
+          <%=
+            check_box_tag "settings[allow_only_group_selection][issue_categories]",
+            issue_categories_setting,
+            issue_categories_setting == "on" ? true : false 
+          %>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</fieldset>

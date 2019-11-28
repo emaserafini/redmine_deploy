@@ -1,0 +1,12 @@
+<% @settings = @settings.with_indifferent_access %>
+<fieldset>
+  <legend>Grouped issue fields settings</legend>
+  <p>
+    <label>Allow filtering by report type</label>
+    <%= 
+      check_box_tag "settings[allow_filtering]",
+      @settings[:allow_filtering],
+      @settings[:allow_filtering] == 'on' ? true : false
+    %>
+  </p>
+</fieldset>

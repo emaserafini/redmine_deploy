@@ -1,0 +1,2 @@
+<%= hidden_field_tag 'is_admin', @user.admin?.to_json %>
+<%= javascript_include_tag "makeUserInfoReadOnly.js", plugin: 'hide_user_information' %>

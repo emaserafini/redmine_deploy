@@ -1,0 +1,52 @@
+--- pdf.rb	(revision 1)
++++ pdf.rb	(working copy)
+@@ -153,7 +153,7 @@
+       end
+       
+       # Returns a PDF string of a single issue
+-      def issue_to_pdf(issue)
++      def issue_to_pdf(issue, show_history)
+         pdf = IFPDF.new(current_language)
+         pdf.SetTitle("#{issue.project} - ##{issue.tracker} #{issue.id}")
+         pdf.AliasNbPages
+@@ -244,23 +244,25 @@
+           end
+         end
+         
+-        pdf.SetFontStyle('B',9)
+-        pdf.Cell(190,5, l(:label_history), "B")
+-        pdf.Ln  
+-        for journal in issue.journals.find(:all, :include => [:user, :details], :order => "#{Journal.table_name}.created_on ASC")
+-          pdf.SetFontStyle('B',8)
+-          pdf.Cell(190,5, format_time(journal.created_on) + " - " + journal.user.name)
+-          pdf.Ln
+-          pdf.SetFontStyle('I',8)
+-          for detail in journal.details
+-            pdf.Cell(190,5, "- " + show_detail(detail, true))
++	if show_history
++          pdf.SetFontStyle('B',9)
++          pdf.Cell(190,5, l(:label_history), "B")
++          pdf.Ln  
++          for journal in issue.journals.find(:all, :include => [:user, :details], :order => "#{Journal.table_name}.created_on ASC")
++            pdf.SetFontStyle('B',8)
++            pdf.Cell(190,5, format_time(journal.created_on) + " - " + journal.user.name)
+             pdf.Ln
++            pdf.SetFontStyle('I',8)
++            for detail in journal.details
++              pdf.Cell(190,5, "- " + show_detail(detail, true))
++              pdf.Ln
++            end
++            if journal.notes?
++              pdf.SetFontStyle('',8)
++              pdf.MultiCell(190,5, journal.notes)
++            end   
++            pdf.Ln
+           end
+-          if journal.notes?
+-            pdf.SetFontStyle('',8)
+-            pdf.MultiCell(190,5, journal.notes)
+-          end   
+-          pdf.Ln
+         end
+         
+         if issue.attachments.any?

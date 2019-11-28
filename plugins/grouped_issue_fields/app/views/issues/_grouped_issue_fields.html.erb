@@ -1,0 +1,21 @@
+<% 
+  formats = %w(PSD2 PCI GDPR)
+  format_specific_fields = @issue.editable_custom_fields.select { |cf| cf.name.start_with? *formats }
+  grouped = format_specific_fields.group_by { |cf| cf.name.split[0] }
+  grouped_fields_ids = Hash[grouped.map { |k, v| [ k, v.map(&:id) ] }].to_json
+  options = ["PSD2", "GDPR", "PCI"]
+  plugin = Redmine::Plugin.find(:grouped_issue_fields)
+  setting = Setting.find_by_name("plugin_#{plugin.id}")
+  allow_filtering = setting && setting.value["allow_filtering"] ? true : false
+%>
+
+<% if allow_filtering %>
+  <p>
+    <label for="issue_format_selector">
+      Filtro
+    </label>
+    <%= select_tag 'issue_format_selector', options_for_select(options), prompt: 'Nessuno' %>
+  </p>
+  <%= hidden_field_tag 'grouped_fields_ids', grouped_fields_ids %>
+  <%= javascript_include_tag "group_custom_fields.js", plugin: 'grouped_issue_fields' %>  
+<% end %>

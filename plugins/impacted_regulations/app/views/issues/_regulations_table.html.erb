@@ -1,0 +1,26 @@
+<hr>
+
+<div class="regulations-table">
+  <p>
+    <label>
+      Normative impattate
+    </label>
+  </p>
+
+  <table>
+    <tr>
+      <th class="key-col">Normativa</th>
+      <th class="val-col">Impatto</th>
+    </tr>
+    <% IssuesHelper.regulations_list.each do |n| %>
+      <tr>
+        <td class="key-col"><%= n[:name] %></td>
+        <td id="<%= n[:id] %>" class="val-col regulation-impacted">
+          <span style="display: none;">✔</span>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= hidden_field_tag 'regulations_list', regulations.to_json %>

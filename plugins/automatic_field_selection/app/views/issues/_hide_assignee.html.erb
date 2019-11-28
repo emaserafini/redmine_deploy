@@ -1,0 +1,8 @@
+<% if issue.project.identifier.include? 'change' %>
+  <%= javascript_include_tag "hideAssignee.js", plugin: 'automatic_field_selection' %>
+<% end %>
+
+<% if issue.project.identifier.include? 'ticket' %>
+  <%= hidden_field_tag 'current_user', IssuesHelper.current_user_pdl_roles %>
+  <%= javascript_include_tag "automaticSelection.js", plugin: 'automatic_field_selection' %>
+<% end %>
